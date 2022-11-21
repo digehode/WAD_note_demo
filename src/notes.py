@@ -18,6 +18,9 @@ def menu():
     print("3: Add note")
     print("4: Read note")
     print("5: Delete note")
+    print("6: List Categories")
+    print("7: New Category")
+    print("8: Notes by category")
     print("0: Quit")
     print()
     return int(input("Choose option: "))
@@ -37,14 +40,19 @@ if __name__=="__main__":
         elif userInput==2:            
             notes=session.query(models.Note).all()
             for note in notes:
-                print(f"{note.id}: {note.title}")
+                print(f"{note.id}: [{note.category.name}] {note.title}")
                 
         elif userInput==3:
-            title=input("Enter new note title: ")
-            content=input("Enter new note content: ")
-            newNote = models.Note(title=title,content=content)
-            session.add(newNote)    
-            session.commit()
+            catNum=int(input("Enter category number: "))
+            cat = session.query(models.Category).filter_by(id=catNum).first()
+            if cat==None:
+                print("No category exists with that number")
+            else:
+                title=input("Enter new note title: ")
+                content=input("Enter new note content: ")
+                newNote = models.Note(title=title,content=content, category=cat)
+                session.add(newNote)    
+                session.commit()
 
         elif userInput==4:
             noteNum=int(input("Enter note number: "))
@@ -64,4 +72,27 @@ if __name__=="__main__":
             else:
                 note.delete()
                 session.commit()
+                
+        elif userInput==6:
+            cats=session.query(models.Category).all()
+            for cat in cats:
+                print(f"{cat.id}: {cat.name}")
+                
+        elif userInput==7:
+            name=input("Enter new category: ")
+            newCat = models.Category(name=name)
+            session.add(newCat)    
+            session.commit()
+            
+        elif userInput==8:
+            catNum=int(input("Enter category number: "))
+            cat = session.query(models.Category).filter_by(id=catNum).first()
+            if cat==None:
+                print("No category exists with that number")
+            else:
+                notes=session.query(models.Note).filter_by(category=cat).all()
+                for note in notes:
+                    print(f"{note.id}: {note.title}")
+                
+            
         print()

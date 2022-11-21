@@ -10,13 +10,19 @@ Base = declarative_base()
 
 
 
-# Our models. Remove the demo "Note" and add your own
-
+class Category(Base):
+    __tablename__="categories"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(30))
+    notes = relationship("Note", back_populates="category")
+    
 class Note(Base):
     __tablename__="notes"
     id = Column(Integer, primary_key=True)
     title = Column(String(30))
     content = Column(Text)
 
+    category_id=Column(Integer, ForeignKey("categories.id"))
+    category = relationship("Category",back_populates="notes")
 
 
