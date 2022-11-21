@@ -1,0 +1,6 @@
+mysqlclient
+ipython
+sqlalchemy
+pdoc3
+mariadb==1.0.11
+
