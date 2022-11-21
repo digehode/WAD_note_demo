@@ -1,11 +1,11 @@
 #Set up the local database password, user, database name and port
 LDBPW = swordfish
-LDBUSER = demodb
-LDB = demodb
-LDBPORT = 3333
+LDBUSER = notes
+LDB = notes
+LDBPORT = 3334
 
 #Set up DB container names
-CONTAINERNAME = demodb
+CONTAINERNAME = note-db
 
 #Admin port
 ADMIN_PORT=90

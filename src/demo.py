@@ -3,10 +3,10 @@ import db
 import models
 
 # Make these settings match your Makefile
-user="demodb"
+user="notes"
 password="swordfish"
-dbname="demodb"
-port="3333"
+dbname="notes"
+port="3334"
 
 if __name__=="__main__":
 
